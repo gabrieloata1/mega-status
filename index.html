@@ -3,80 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Responda 2 perguntas por dia e acompanhe seu progresso diario." />
-  <title>Mega Status - 2 perguntas por dia</title>
+  <meta name="description" content="Responda 2 perguntas por dia e acompanhe seu progresso diário." />
+  <title>Mega Status — 2 perguntas por dia</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- ======================== AUTH SCREEN ======================== -->
   <div id="auth-screen" class="screen active">
     <div class="auth-container">
       <div class="auth-logo">
-        <div class="logo-icon">&#10067;</div>
+        <img src="assets/logo1.jpg" alt="Mega Status" class="auth-logo-img" />
         <h1>Mega Status</h1>
         <p>2 perguntas por dia para refletir</p>
       </div>
+
       <div class="auth-tabs">
         <button id="tab-login" class="tab-btn active" onclick="switchTab('login')">Entrar</button>
         <button id="tab-register" class="tab-btn" onclick="switchTab('register')">Registrar</button>
       </div>
+
+      <!-- LOGIN FORM -->
       <form id="login-form" class="auth-form active" onsubmit="handleLogin(event)">
         <div class="form-group">
-          <label for="login-username">Usuario</label>
-          <input type="text" id="login-username" placeholder="seu usuario" required autocomplete="username" />
+          <label for="login-username">Usuário</label>
+          <input type="text" id="login-username" placeholder="seu usuário" required autocomplete="username" />
         </div>
         <div class="form-group">
           <label for="login-password">Senha</label>
           <div class="password-wrapper">
             <input type="password" id="login-password" placeholder="Sua senha" required autocomplete="current-password" />
-            <button type="button" class="eye-btn" onclick="togglePass('login-password', this)">&#128065;</button>
+            <button type="button" class="eye-btn" onclick="togglePass('login-password', this)">👁️</button>
           </div>
         </div>
         <div id="login-error" class="form-error hidden"></div>
         <button type="submit" id="login-btn" class="btn-primary">
           <span class="btn-text">Entrar</span>
-          <span class="btn-loader hidden">&#9203;</span>
+          <span class="btn-loader hidden">⏳</span>
         </button>
       </form>
+
+      <!-- REGISTER FORM -->
       <form id="register-form" class="auth-form" onsubmit="handleRegister(event)">
         <div class="form-group">
-          <label for="reg-username">Usuario</label>
-          <input type="text" id="reg-username" placeholder="Escolha um usuario" required autocomplete="username" />
+          <label for="reg-username">Usuário</label>
+          <input type="text" id="reg-username" placeholder="Escolha um usuário" required autocomplete="username" />
         </div>
         <div class="form-group">
           <label for="reg-password">Senha</label>
           <div class="password-wrapper">
-            <input type="password" id="reg-password" placeholder="Minimo 6 caracteres" required minlength="6" autocomplete="new-password" />
-            <button type="button" class="eye-btn" onclick="togglePass('reg-password', this)">&#128065;</button>
+            <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres" required minlength="6" autocomplete="new-password" />
+            <button type="button" class="eye-btn" onclick="togglePass('reg-password', this)">👁️</button>
           </div>
         </div>
         <div id="register-error" class="form-error hidden"></div>
         <div id="register-success" class="form-success hidden"></div>
         <button type="submit" id="register-btn" class="btn-primary">
           <span class="btn-text">Criar conta</span>
-          <span class="btn-loader hidden">&#9203;</span>
+          <span class="btn-loader hidden">⏳</span>
         </button>
       </form>
     </div>
   </div>
 
+  <!-- ======================== MAIN APP ======================== -->
   <div id="app-screen" class="screen">
+
+    <!-- HEADER -->
     <header class="app-header">
       <div class="header-content">
         <div class="header-brand">
-          <span class="brand-icon">&#10067;</span>
+          <img src="assets/logo3.jpg" alt="Mega Status" class="header-logo-img" />
           <span class="brand-name">Mega Status</span>
         </div>
         <div class="header-user">
           <span id="user-name-display" class="user-name"></span>
-          <button class="logout-btn" onclick="handleLogout()" title="Sair">&#9167;</button>
+          <button class="logout-btn" onclick="handleLogout()" title="Sair">⏏️</button>
         </div>
       </div>
     </header>
+
+    <!-- MAIN CONTENT -->
     <main class="app-main">
-      <div class="date-badge"><span id="today-date"></span></div>
+
+      <!-- Brand Banner -->
+      <div class="app-banner">
+        <img src="assets/logo2.jpg" alt="Mega Status Banner" class="banner-img" />
+      </div>
+
+      <!-- Date / streak display -->
+      <div class="date-badge">
+        <span id="today-date"></span>
+      </div>
+
+      <!-- Progress -->
       <div class="progress-card">
         <div class="progress-label">
           <span>Perguntas respondidas hoje</span>
@@ -86,26 +109,37 @@
           <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
         </div>
       </div>
+
+      <!-- Loading state -->
       <div id="loading-state" class="state-box">
         <div class="spinner"></div>
-        <p>Carregando suas perguntas...</p>
+        <p>Carregando suas perguntas…</p>
       </div>
+
+      <!-- All done state -->
       <div id="done-state" class="state-box hidden">
-        <div class="done-emoji">&#127881;</div>
+        <div class="done-emoji">🎉</div>
         <h2>Tudo certo por hoje!</h2>
-        <p>Voce ja respondeu suas 2 perguntas de hoje.<br>Volte amanha para mais!</p>
+        <p>Você já respondeu suas 2 perguntas de hoje.<br>Volte amanhã para mais!</p>
         <div class="payment-notice">
-          &#128176; Voce recebera seu pagamento de <strong>21:00 a 23:30</strong>
+          💰 Você receberá seu pagamento de <strong>21:00 a 23:30</strong>
         </div>
         <div id="next-reset" class="next-reset"></div>
       </div>
+
+      <!-- No questions state -->
       <div id="no-questions-state" class="state-box hidden">
-        <div class="done-emoji">&#129300;</div>
-        <h2>Sem perguntas disponiveis</h2>
-        <p>O administrador ainda nao cadastrou perguntas.</p>
+        <div class="done-emoji">🤔</div>
+        <h2>Sem perguntas disponíveis</h2>
+        <p>O administrador ainda não cadastrou perguntas.</p>
       </div>
+
+      <!-- Questions list -->
       <div id="questions-container" class="questions-container hidden"></div>
+
     </main>
+
+    <!-- FOOTER -->
     <footer class="app-footer">
       <p>Mega Status &copy; 2025</p>
     </footer>
